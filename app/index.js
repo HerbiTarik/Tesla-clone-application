@@ -1,14 +1,9 @@
 import { StyleSheet, Text, View, Image, FlatList } from 'react-native'
-import {
-    FontAwesome,
-    Entypo,
-    MaterialCommunityIcons,
-    FontAwesome5,
-    Ionicons,
-    MaterialIcons,
-} from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
 import car from '../assets/images/car.png'
 import menuOptions from '../assets/menuOptions'
+import MenuOptions from '../components/MenuOptions'
+import Controls from '../components/Controls'
 
 export default function Page() {
     return (
@@ -21,31 +16,13 @@ export default function Page() {
                 <FontAwesome name="user-circle" size={30} color="gray" />
             </View>
             <Image source={car} style={styles.image} resizeMode="contain" />
-            <View style={styles.controls}>
-                <Entypo name="lock" size={26} color="gray" />
-                <MaterialCommunityIcons name="fan" size={26} color="gray" />
-                <FontAwesome5 name="bolt" size={26} color="gray" />
-                <Ionicons name="car-sport-sharp" size={26} color="gray" />
-            </View>
 
+            {/*<Controls />*/}
             <FlatList
                 data={menuOptions}
-                renderItem={({ item }) => (
-                    <View style={styles.optionRow}>
-                        <MaterialCommunityIcons
-                            name={item.iconName}
-                            size={26}
-                            color="gray"
-                        />
-                        <Text style={styles.optionText}>{item.name}</Text>
-                        <MaterialIcons
-                            name="keyboard-arrow-right"
-                            size={24}
-                            color="gray"
-                            style={{ marginLeft: 'auto' }}
-                        />
-                    </View>
-                )}
+                showsVerticalScrollIndicator={false}
+                renderItem={MenuOptions}
+                ListHeaderComponent={Controls}
             />
         </View>
     )
@@ -75,22 +52,5 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: 300,
-    },
-    controls: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        marginVertical: 20,
-    },
-    optionRow: {
-        flexDirection: 'row',
-        marginVertical: 20,
-        alignItems: 'center',
-    },
-    optionText: {
-        color: '#eee',
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginLeft: 10,
     },
 })
