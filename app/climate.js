@@ -1,10 +1,14 @@
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import climateImage from '../assets/images/climate.png'
 import { useRouter } from 'expo-router'
+import { useState } from 'react'
 import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'
 
 const ClimateScreen = () => {
     const router = useRouter()
+    const [tmeperature, setTemperature] = useState(68)
+    const [on, setOn] = useState(false)
+    const [vent, setVent] = useState(false)
 
     return (
         <View style={styles.container}>
@@ -22,29 +26,49 @@ const ClimateScreen = () => {
                 <Text style={styles.label}>Interior 74°F - Exterior 66°F</Text>
 
                 <View style={styles.controlsRow}>
-                    <View style={styles.iconButtonContainer}>
+                    <Pressable
+                        onPress={() => setOn(!on)}
+                        style={styles.iconButtonContainer}
+                    >
                         <MaterialCommunityIcons
                             name="power"
                             size={42}
-                            color="white"
+                            color={on ? 'white' : 'gray'}
                         />
-                        <Text style={styles.iconButtonText}>On</Text>
-                    </View>
+                        <Text style={styles.iconButtonText}>
+                            {on ? 'On' : 'Off'}
+                        </Text>
+                    </Pressable>
 
                     <View style={styles.temperatureContainer}>
-                        <Entypo name="chevron-left" size={30} color="gray" />
-                        <Text style={styles.temperatureText}>68°</Text>
-                        <Entypo name="chevron-right" size={30} color="gray" />
+                        <Entypo
+                            onPress={() => setTemperature(tmeperature - 1)}
+                            name="chevron-left"
+                            size={30}
+                            color="gray"
+                        />
+                        <Text style={styles.temperatureText}>
+                            {tmeperature}°
+                        </Text>
+                        <Entypo
+                            onPress={() => setTemperature(tmeperature + 1)}
+                            name="chevron-right"
+                            size={30}
+                            color="gray"
+                        />
                     </View>
 
-                    <View style={styles.iconButtonContainer}>
+                    <Pressable
+                        onPress={() => setVent(!vent)}
+                        style={styles.iconButtonContainer}
+                    >
                         <MaterialCommunityIcons
                             name="car-door"
                             size={42}
-                            color="gray"
+                            color={vent ? 'white' : 'gray'}
                         />
                         <Text style={styles.iconButtonText}>Vent</Text>
-                    </View>
+                    </Pressable>
                 </View>
             </View>
         </View>
